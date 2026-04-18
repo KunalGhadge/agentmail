@@ -15,6 +15,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -130,14 +131,13 @@
                 <a class="text-zinc-400 font-medium hover:text-cyan-400 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
                     href="#">Features</a>
                 <a class="text-zinc-400 font-medium hover:text-cyan-400 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                    href="#">Intelligence</a>
+                    href="https://github.com/KunalGhadge/agentmail">Framework</a>
                 <a class="text-zinc-400 font-medium hover:text-cyan-400 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
-                    href="#">Pricing</a>
+                    href="https://github.com/KunalGhadge/agentmail">Documentation</a>
             </div>
             <div class="flex items-center space-x-6">
-                <a href="https://github.com/KunalGhadge/agentmail"
-                    class="bg-violet-500 hover:bg-primary-dim text-black font-bold px-6 py-2 rounded-lg transition-all duration-300 active:scale-95">Get
-                    Started</a>
+                <button onclick="handleAuthClick()"
+                    class="bg-violet-500 hover:bg-primary-dim text-black font-bold px-6 py-2 rounded-lg transition-all duration-300 active:scale-95">Get Started</button>
             </div>
         </div>
     </nav>
@@ -160,9 +160,8 @@
                     the machine-to-machine economy.
                 </p>
                 <div class="flex flex-wrap gap-4">
-                    <a href="https://github.com/KunalGhadge/agentmail"
-                        class="bg-primary text-on-primary-fixed px-8 py-4 font-bold text-lg rounded-xl hover:bg-primary-dim hover:shadow-[0_0_20px_rgba(186,158,255,0.4)] transition-all kinetic-snap">Deploy
-                        Agent</a>
+                    <button onclick="handleAuthClick()"
+                        class="bg-primary text-on-primary-fixed px-8 py-4 font-bold text-lg rounded-xl hover:bg-primary-dim hover:shadow-[0_0_20px_rgba(186,158,255,0.4)] transition-all kinetic-snap">Connect Agent</button>
                     <a href="https://github.com/KunalGhadge/agentmail"
                         class="border border-outline-variant px-8 py-4 font-bold text-lg rounded-xl hover:bg-surface-container-high transition-all kinetic-snap text-white text-center">Read
                         README</a>
@@ -219,31 +218,6 @@
                             <span class="text-secondary">[WAIT]</span>
                             <span class="text-on-surface-variant">Awaiting peer signature...</span>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Stats Counter -->
-        <section class="py-20 px-10 border-y border-outline-variant/10 bg-surface-container-lowest">
-            <div class="max-w-[1920px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-12">
-                <div class="space-y-2">
-                    <div class="text-4xl md:text-6xl font-black text-white">99.99%</div>
-                    <div class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant">Network Uptime
-                    </div>
-                </div>
-                <div class="space-y-2">
-                    <div class="text-4xl md:text-6xl font-black text-secondary">&lt;2ms</div>
-                    <div class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant">P2P Latency
-                    </div>
-                </div>
-                <div class="space-y-2">
-                    <div class="text-4xl md:text-6xl font-black text-white">4.2M</div>
-                    <div class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant">Daily Payloads
-                    </div>
-                </div>
-                <div class="space-y-2">
-                    <div class="text-4xl md:text-6xl font-black text-primary">ZERO</div>
-                    <div class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant">Trust Required
                     </div>
                 </div>
             </div>
@@ -461,11 +435,11 @@
                         class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Agentic
                         Era?</span></h2>
                 <p class="text-xl text-on-surface-variant max-w-2xl mx-auto leading-relaxed">
-                    Join 5,000+ developers building the future of autonomous communication on AgentMail.
+                    The ultra-low latency communication layer for the machine-to-machine economy.
                 </p>
                 <div class="flex justify-center gap-6">
-                    <a href="https://github.com/KunalGhadge/agentmail"
-                        class="bg-white text-black px-12 py-5 rounded-full font-black text-xl hover:scale-105 transition-all kinetic-snap">Join the Network</a>
+                    <button onclick="handleAuthClick()"
+                        class="bg-white text-black px-12 py-5 rounded-full font-black text-xl hover:scale-105 transition-all kinetic-snap">Join the Network</button>
                 </div>
             </div>
         </section>
@@ -486,6 +460,85 @@
         </div>
         <div class="text-zinc-600">© 2024 AGENTMAIL. KINETIC MONOLITH SYSTEMS.</div>
     </footer>
+    <div id="authModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-6 bg-black/80 backdrop-blur-xl">
+        <div class="bg-surface-container-low border border-white/10 p-10 rounded-2xl max-w-md w-full space-y-8 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-3xl rounded-full"></div>
+            <div class="text-center space-y-2">
+                <h3 id="authTitle" class="text-3xl font-black text-white tracking-tighter">Enter the Network</h3>
+                <p class="text-zinc-500 text-sm">Secure your sovereign developer identity.</p>
+            </div>
+            <div class="space-y-4">
+                <div class="space-y-2">
+                    <label class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold ml-1">Email Address</label>
+                    <input type="email" id="emailInput" placeholder="name@domain.com" class="w-full bg-black/50 border border-white/10 p-4 rounded-xl text-white focus:border-primary transition-all outline-none">
+                </div>
+                <div class="space-y-2">
+                    <label class="text-[10px] uppercase tracking-widest text-zinc-500 font-bold ml-1">Password</label>
+                    <input type="password" id="passwordInput" placeholder="••••••••" class="w-full bg-black/50 border border-white/10 p-4 rounded-xl text-white focus:border-primary transition-all outline-none">
+                </div>
+                
+                <div class="flex flex-col gap-3 pt-2">
+                    <button onclick="handleLogin()" class="w-full bg-primary text-black py-4 rounded-xl font-bold hover:shadow-[0_0_20px_rgba(186,158,255,0.4)] transition-all active:scale-95">Sign In</button>
+                    <button onclick="handleSignup()" class="w-full border border-white/10 text-white py-4 rounded-xl font-bold hover:bg-white/5 transition-all active:scale-95">Create Account</button>
+                </div>
+            </div>
+            <button onclick="toggleAuthModal()" class="w-full text-zinc-600 text-[10px] uppercase tracking-widest font-bold hover:text-white transition-colors pt-4">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = "https://mfeagklbgwpitwvoxghs.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_XYz6zl-hkzzWWJ7U8EX_PA_v5NMdXEf";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        function toggleAuthModal() {
+            const modal = document.getElementById('authModal');
+            modal.classList.toggle('hidden');
+            modal.classList.toggle('flex');
+        }
+
+        async function handleAuthClick() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) {
+                window.location.href = "/console.html";
+            } else {
+                toggleAuthModal();
+            }
+        }
+
+        async function handleLogin() {
+            const email = document.getElementById('emailInput').value;
+            const password = document.getElementById('passwordInput').value;
+            
+            if (!email || !password) return alert("Please fill in all fields.");
+            
+            const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+            if (error) {
+                alert("Login Error: " + error.message);
+            } else {
+                window.location.href = window.location.origin + window.location.pathname.replace('index.html', '') + "console.html";
+            }
+        }
+
+        async function handleSignup() {
+            const email = document.getElementById('emailInput').value;
+            const password = document.getElementById('passwordInput').value;
+            
+            if (!email || !password) return alert("Please fill in all fields.");
+            if (password.length < 6) return alert("Password must be at least 6 characters.");
+            
+            const { error } = await supabaseClient.auth.signUp({ email, password });
+            if (error) {
+                alert("Signup Error: " + error.message);
+            } else {
+                alert("Account created! You can now Sign In.");
+            }
+        }
+
+        supabaseClient.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_IN') window.location.href = "/console.html";
+        });
+    </script>
 </body>
 
 </html>

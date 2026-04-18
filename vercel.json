@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "agentmail-platform",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "framework": null,
+  "installCommand": "echo 'skipping install'",
+  "buildCommand": "echo 'skipping build'",
+  "outputDirectory": "."
+}

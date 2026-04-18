@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+          tailwind.config = {
+            darkMode: "class",
+            theme: {
+              extend: {
+                "colors": {
+                        "surface-container": "#191919",
+                        "error": "#ff6e84",
+                        "outline": "#757575",
+                        "background": "#0e0e0e",
+                        "error-container": "#a70138",
+                        "secondary": "#00ffd5",
+                        "surface-variant": "#262626",
+                        "surface-container-high": "#1f1f1f",
+                        "on-secondary-fixed-variant": "#006856",
+                        "tertiary-fixed-dim": "#f0f1f1",
+                        "tertiary": "#f9f9f9",
+                        "on-primary-container": "#2b006e",
+                        "secondary-fixed-dim": "#00efc8",
+                        "surface": "#0e0e0e",
+                        "on-primary-fixed": "#000000",
+                        "inverse-on-surface": "#555555",
+                        "primary-dim": "#8455ef",
+                        "on-tertiary-container": "#555757",
+                        "on-surface": "#ffffff",
+                        "primary-fixed": "#ae8dff",
+                        "surface-dim": "#0e0e0e",
+                        "surface-tint": "#ba9eff",
+                        "tertiary-dim": "#ebebeb",
+                        "secondary-dim": "#00efc8",
+                        "secondary-container": "#006b58",
+                        "secondary-fixed": "#00ffd5",
+                        "primary": "#ba9eff",
+                        "on-tertiary-fixed": "#4f5051",
+                        "on-error": "#490013",
+                        "on-surface-variant": "#ababab",
+                        "on-tertiary-fixed-variant": "#6c6d6e",
+                        "outline-variant": "#484848",
+                        "on-secondary-fixed": "#00483b",
+                        "tertiary-container": "#ebebeb",
+                        "surface-container-lowest": "#000000",
+                        "surface-bright": "#2c2c2c",
+                        "on-background": "#ffffff",
+                        "inverse-surface": "#f9f9f9",
+                        "primary-fixed-dim": "#a27cff",
+                        "inverse-primary": "#6e3bd7",
+                        "on-secondary": "#005d4c",
+                        "surface-container-highest": "#262626",
+                        "surface-container-low": "#131313",
+                        "primary-container": "#ae8dff",
+                        "tertiary-fixed": "#ffffff",
+                        "on-secondary-container": "#defff3",
+                        "error-dim": "#d73357",
+                        "on-error-container": "#ffb2b9",
+                        "on-primary": "#39008c",
+                        "on-tertiary": "#5e5f60",
+                        "on-primary-fixed-variant": "#370086"
+                },
+                "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                },
+                "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"],
+                        "mono": ["JetBrains Mono"]
+                }
+              },
+            },
+          }
+    </script>
+    <style>
+            .material-symbols-outlined {
+                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            }
+            .mono-font { font-family: 'JetBrains Mono', monospace; }
+            .kinetic-snap { transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+            .glass-panel {
+                background: rgba(19, 19, 19, 0.7);
+                backdrop-filter: blur(32px);
+                border-top: 1px solid rgba(0, 255, 213, 0.15);
+                border-left: 1px solid rgba(0, 255, 213, 0.15);
+            }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body selection:bg-primary selection:text-on-primary overflow-x-hidden">
+    <aside class="fixed left-0 top-0 h-screen w-64 border-r border-white/5 bg-black flex flex-col py-6 px-4 z-50">
+        <div class="mb-12 px-4">
+            <h1 class="text-2xl font-extrabold tracking-tighter text-white">AgentMail</h1>
+            <p class="font-inter uppercase tracking-widest text-[10px] font-bold text-zinc-500 mt-1">Developer Console</p>
+        </div>
+        <nav class="flex-1 space-y-2">
+            <a class="flex items-center gap-3 px-4 py-3 text-zinc-500 hover:text-zinc-300 hover:bg-white/5 rounded-lg kinetic-snap" href="/">
+                <span class="material-symbols-outlined">grid_view</span>
+                <span class="font-inter uppercase tracking-widest text-[10px] font-bold">Dashboard</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 text-white bg-white/5 border-r-2 border-secondary shadow-[0_0_15px_rgba(34,211,238,0.2)] rounded-lg kinetic-snap" href="#">
+                <span class="material-symbols-outlined">forward_to_inbox</span>
+                <span class="font-inter uppercase tracking-widest text-[10px] font-bold">Mailbox</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 text-zinc-500 hover:text-zinc-300 hover:bg-white/5 rounded-lg kinetic-snap" href="#">
+                <span class="material-symbols-outlined">insights</span>
+                <span class="font-inter uppercase tracking-widest text-[10px] font-bold">Analytics</span>
+            </a>
+            <a class="flex items-center gap-3 px-4 py-3 text-zinc-500 hover:text-zinc-300 hover:bg-white/5 rounded-lg kinetic-snap" href="#">
+                <span class="material-symbols-outlined">terminal</span>
+                <span class="font-inter uppercase tracking-widest text-[10px] font-bold">API Settings</span>
+            </a>
+        </nav>
+        <div class="mt-auto space-y-6 px-4">
+            <button id="logoutBtn" class="w-full border border-white/10 hover:bg-white/5 py-3 rounded-lg text-zinc-500 text-[10px] font-bold uppercase tracking-widest kinetic-snap">
+                Sign Out
+            </button>
+            <div class="space-y-4">
+                <a class="flex items-center gap-3 text-zinc-500 hover:text-white kinetic-snap text-[10px] font-bold uppercase tracking-widest" href="https://github.com/KunalGhadge/agentmail">
+                    <span class="material-symbols-outlined text-sm">menu_book</span> Documentation
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <header class="fixed top-0 right-0 left-64 h-16 flex items-center justify-between px-8 z-40 bg-black/80 backdrop-blur-2xl border-b border-white/5 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+        <div class="flex items-center gap-4">
+            <span class="text-zinc-400 font-inter text-sm font-medium">Integration: <span class="text-white font-extrabold tracking-tighter">AGENT_MAIL_PROTOCOL_V1</span></span>
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-3">
+                <div class="text-right">
+                    <p id="userEmail" class="text-[10px] font-bold uppercase tracking-widest text-white">Loading...</p>
+                    <p class="text-[9px] text-violet-400 font-medium">Developer Tier</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="ml-64 pt-24 pb-12 px-12 min-h-screen relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none"></div>
+        <div class="max-w-5xl mx-auto space-y-12">
+            <section class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-2 h-8 bg-secondary"></div>
+                    <h2 class="text-5xl font-extrabold tracking-tighter text-white">Setup Console</h2>
+                </div>
+                <p class="text-on-surface-variant max-w-2xl leading-relaxed">
+                    Initialize your AgentMail protocol integration by following the secure onboarding sequence. These steps generate your cryptographic identity and link your agent to the distributed relay network.
+                </p>
+            </section>
+
+            <div class="glass-panel rounded-xl overflow-hidden shadow-2xl border border-white/5">
+                <div class="p-10 border-b border-white/5 group">
+                    <div class="flex items-start gap-8">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary font-black text-xl border border-primary/20 group-hover:bg-primary group-hover:text-black transition-all duration-300">
+                            01
+                        </div>
+                        <div class="flex-1 space-y-6">
+                            <div>
+                                <h3 class="text-xl font-bold text-white tracking-tight">Identity Generation</h3>
+                                <p class="text-on-surface-variant text-sm mt-1">Sovereign identity hash detected for your session.</p>
+                            </div>
+                            <div class="bg-black/50 p-6 rounded-lg border border-white/5 relative group/code">
+                                <pre id="publicKeyArea" class="mono-font text-xs text-secondary/80 leading-relaxed overflow-x-auto">DETECTION_IN_PROGRESS...</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-10 border-b border-white/5 group">
+                    <div class="flex items-start gap-8">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary font-black text-xl border border-secondary/20 group-hover:bg-secondary group-hover:text-black transition-all duration-300">
+                            02
+                        </div>
+                        <div class="flex-1 space-y-6">
+                            <div>
+                                <h3 class="text-xl font-bold text-white tracking-tight">Post Office Relay</h3>
+                                <p class="text-on-surface-variant text-sm mt-1">Heartbeat sync with the global AgentMail relay cluster.</p>
+                            </div>
+                            <div class="flex items-center gap-4 bg-surface-container-high p-5 rounded-lg border border-secondary/10 w-fit">
+                                <div class="relative flex items-center justify-center w-3 h-3">
+                                    <div class="absolute w-full h-full bg-secondary rounded-full animate-ping opacity-50"></div>
+                                    <div class="relative w-2 h-2 bg-secondary rounded-full"></div>
+                                </div>
+                                <div class="flex flex-col">
+                                    <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500">Status</span>
+                                    <span class="text-sm font-bold text-secondary">CONNECTED</span>
+                                </div>
+                                <div class="w-[1px] h-8 bg-white/5 mx-2"></div>
+                                <div class="flex flex-col">
+                                    <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500">Latency</span>
+                                    <span class="text-sm font-bold text-white">1.8ms</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-10 group">
+                    <div class="flex items-start gap-8">
+                        <div class="flex-shrink-0 w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary-dim font-black text-xl border border-primary-dim/20 group-hover:bg-primary-dim group-hover:text-black transition-all duration-300">
+                            03
+                        </div>
+                        <div class="flex-1 space-y-6">
+                            <div>
+                                <h3 class="text-xl font-bold text-white tracking-tight">MCP Configuration</h3>
+                                <p class="text-on-surface-variant text-sm mt-1">Copy-paste this JSON into your Claude Desktop or Cursor config file.</p>
+                            </div>
+                            <div class="bg-black/80 rounded-lg overflow-hidden border border-white/5">
+                                <div class="flex items-center justify-between px-6 py-3 bg-white/5 border-b border-white/5">
+                                    <span class="text-[10px] mono-font text-zinc-500">claude_desktop_config.json</span>
+                                </div>
+                                <div class="p-6">
+                                    <pre id="mcpConfigArea" class="mono-font text-xs leading-relaxed text-secondary/90">LOADING_CONFIG...</pre>
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-4 pt-4">
+                                <button id="copyJsonBtn" class="flex items-center gap-2 px-8 py-4 bg-primary text-on-primary font-black text-xs uppercase tracking-widest rounded-lg hover:shadow-[0_0_20px_rgba(186,158,255,0.4)] kinetic-snap active:scale-95">
+                                    <span class="material-symbols-outlined text-base">content_copy</span>
+                                    Copy Config
+                                </button>
+                                <a href="https://github.com/KunalGhadge/agentmail" target="_blank" class="flex items-center gap-2 px-8 py-4 border border-white/20 text-white font-black text-xs uppercase tracking-widest rounded-lg hover:bg-white/5 kinetic-snap active:scale-95">
+                                    <span class="material-symbols-outlined text-base">code</span>
+                                    Clone Repo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const SUPABASE_URL = "https://mfeagklbgwpitwvoxghs.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_XYz6zl-hkzzWWJ7U8EX_PA_v5NMdXEf";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        async function init() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) {
+                window.location.href = "/";
+                return;
+            }
+
+            document.getElementById('userEmail').textContent = session.user.email;
+            
+            const mockIdentity = "SEC_ID_" + btoa(session.user.id).substring(0, 32).toUpperCase();
+            document.getElementById('publicKeyArea').textContent = mockIdentity;
+
+            const mcpConfig = {
+                "mcpServers": {
+                    "agentmail": {
+                        "command": "python",
+                        "args": ["/path/to/agentmail/server.py"],
+                        "env": {
+                            "SUPABASE_URL": SUPABASE_URL,
+                            "SUPABASE_KEY": SUPABASE_KEY,
+                            "GOOGLE_API_KEY": "YOUR_GEMINI_KEY"
+                        }
+                    }
+                }
+            };
+            document.getElementById('mcpConfigArea').textContent = JSON.stringify(mcpConfig, null, 2);
+
+            document.getElementById('copyJsonBtn').onclick = () => {
+                navigator.clipboard.writeText(JSON.stringify(mcpConfig, null, 2));
+                alert("Config copied to clipboard!");
+            };
+
+            document.getElementById('logoutBtn').onclick = async () => {
+                await supabaseClient.auth.signOut();
+                window.location.href = window.location.origin;
+            };
+        }
+
+        init();
+    </script>
+</body>
+</html>

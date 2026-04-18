@@ -3,3 +3,7 @@ cryptography
 fastmcp
 supabase
 python-dotenv
+agno
+streamlit
+pandas
+google-generativeai
