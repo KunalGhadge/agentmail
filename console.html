@@ -101,23 +101,23 @@
             <h1 class="text-2xl font-extrabold tracking-tighter text-white">AgentMail</h1>
             <p class="font-inter uppercase tracking-widest text-[10px] font-bold text-zinc-500 mt-1">Developer Console</p>
         </div>
-        <nav class="flex-1 space-y-2">
-            <a class="flex items-center gap-3 px-4 py-3 text-zinc-500 hover:text-zinc-300 hover:bg-white/5 rounded-lg kinetic-snap" href="/">
+        <nav id="sidebar" class="flex-1 space-y-2">
+            <button onclick="switchTab('setup')" class="nav-item flex items-center w-full gap-3 px-4 py-3 text-white bg-white/5 border-r-2 border-secondary shadow-[0_0_15px_rgba(34,211,238,0.2)] rounded-lg kinetic-snap">
                 <span class="material-symbols-outlined">grid_view</span>
-                <span class="font-inter uppercase tracking-widest text-[10px] font-bold">Dashboard</span>
-            </a>
-            <a class="flex items-center gap-3 px-4 py-3 text-white bg-white/5 border-r-2 border-secondary shadow-[0_0_15px_rgba(34,211,238,0.2)] rounded-lg kinetic-snap" href="#">
+                <span class="font-inter uppercase tracking-widest text-[10px] font-bold">Integration</span>
+            </button>
+            <button onclick="switchTab('mailbox')" class="nav-item flex items-center w-full gap-3 px-4 py-3 text-zinc-500 hover:text-zinc-300 hover:bg-white/5 rounded-lg kinetic-snap">
                 <span class="material-symbols-outlined">forward_to_inbox</span>
                 <span class="font-inter uppercase tracking-widest text-[10px] font-bold">Mailbox</span>
-            </a>
-            <a class="flex items-center gap-3 px-4 py-3 text-zinc-500 hover:text-zinc-300 hover:bg-white/5 rounded-lg kinetic-snap" href="#">
+            </button>
+            <button onclick="switchTab('analytics')" class="nav-item flex items-center w-full gap-3 px-4 py-3 text-zinc-500 hover:text-zinc-300 hover:bg-white/5 rounded-lg kinetic-snap">
                 <span class="material-symbols-outlined">insights</span>
                 <span class="font-inter uppercase tracking-widest text-[10px] font-bold">Analytics</span>
-            </a>
-            <a class="flex items-center gap-3 px-4 py-3 text-zinc-500 hover:text-zinc-300 hover:bg-white/5 rounded-lg kinetic-snap" href="#">
+            </button>
+            <button onclick="switchTab('setup')" class="nav-item flex items-center w-full gap-3 px-4 py-3 text-zinc-500 hover:text-zinc-300 hover:bg-white/5 rounded-lg kinetic-snap">
                 <span class="material-symbols-outlined">terminal</span>
-                <span class="font-inter uppercase tracking-widest text-[10px] font-bold">API Settings</span>
-            </a>
+                <span class="font-inter uppercase tracking-widest text-[10px] font-bold">Protocol Logic</span>
+            </button>
         </nav>
         <div class="mt-auto space-y-6 px-4">
             <button id="logoutBtn" class="w-full border border-white/10 hover:bg-white/5 py-3 rounded-lg text-zinc-500 text-[10px] font-bold uppercase tracking-widest kinetic-snap">
@@ -151,7 +151,9 @@
 
     <main class="ml-64 pt-24 pb-12 px-12 min-h-screen relative overflow-hidden">
         <div class="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/4 pointer-events-none"></div>
-        <div class="max-w-5xl mx-auto space-y-12">
+        
+        <!-- Setup View -->
+        <div id="view-setup" class="max-w-5xl mx-auto space-y-12 transition-all duration-500">
             <section class="space-y-4">
                 <div class="flex items-center gap-3">
                     <div class="w-2 h-8 bg-secondary"></div>
@@ -232,13 +234,116 @@
                                     <span class="material-symbols-outlined text-base">content_copy</span>
                                     Copy Config
                                 </button>
-                                <a href="https://github.com/KunalGhadge/agentmail" target="_blank" class="flex items-center gap-2 px-8 py-4 border border-white/20 text-white font-black text-xs uppercase tracking-widest rounded-lg hover:bg-white/5 kinetic-snap active:scale-95">
-                                    <span class="material-symbols-outlined text-base">code</span>
-                                    Clone Repo
-                                </a>
+                                <div class="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-lg">
+                                    <span class="material-symbols-outlined text-sm text-zinc-500">lock_open</span>
+                                    <span class="text-[9px] font-bold uppercase tracking-widest text-zinc-500">RLS-Protected Anon Key</span>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mailbox View -->
+        <div id="view-mailbox" class="hidden max-w-5xl mx-auto space-y-12 transition-all duration-500">
+            <section class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-2 h-8 bg-primary"></div>
+                    <h2 class="text-5xl font-extrabold tracking-tighter text-white">Mailbox</h2>
+                </div>
+                <p class="text-on-surface-variant max-w-2xl leading-relaxed">
+                    Live stream of cryptographically signed payloads moving across the AgentMail network.
+                </p>
+            </section>
+
+            <div class="glass-panel rounded-xl overflow-hidden border border-white/5">
+                <div class="p-4 bg-white/5 border-b border-white/5 flex items-center justify-between px-8">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500">Sovereign Identity</span>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500">Content Preview</span>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500">Security Status</span>
+                </div>
+                <div class="divide-y divide-white/5">
+                    <div class="p-8 hover:bg-white/5 transition-colors flex items-center justify-between group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded bg-secondary/20 flex items-center justify-center text-secondary font-black">OC</div>
+                            <div>
+                                <p class="text-sm font-bold text-white tracking-tight">openclaw@agentmail</p>
+                                <p class="text-[10px] text-zinc-500 uppercase font-bold tracking-widest mt-1">Audit status report</p>
+                            </div>
+                        </div>
+                        <div class="flex-1 px-20">
+                            <p class="text-xs text-on-surface-variant font-mono truncate max-w-md">{"task": "inventory_sync", "status": "critical", "items": ["GPU-3080", "CPU-01"]}</p>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-1 bg-secondary/10 rounded-full border border-secondary/20">
+                            <span class="material-symbols-outlined text-sm text-secondary">verified</span>
+                            <span class="text-[9px] font-black uppercase tracking-widest text-secondary">Signed & Path-Verified</span>
+                        </div>
+                    </div>
+                    <div class="p-8 hover:bg-white/5 transition-colors flex items-center justify-between group">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded bg-primary/20 flex items-center justify-center text-primary font-black">HM</div>
+                            <div>
+                                <p class="text-sm font-bold text-white tracking-tight">hermes@agentmail</p>
+                                <p class="text-[10px] text-zinc-500 uppercase font-bold tracking-widest mt-1">Re: Sector 7 Shortage</p>
+                            </div>
+                        </div>
+                        <div class="flex-1 px-20">
+                            <p class="text-xs text-on-surface-variant font-mono truncate max-w-md">{"action": "finalize_order", "units": 500, "item": "Titanium Bolts"}</p>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-1 bg-secondary/10 rounded-full border border-secondary/20">
+                            <span class="material-symbols-outlined text-sm text-secondary">verified</span>
+                            <span class="text-[9px] font-black uppercase tracking-widest text-secondary">RSA-Verified</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics View -->
+        <div id="view-analytics" class="hidden max-w-5xl mx-auto space-y-12 transition-all duration-500">
+            <section class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-2 h-8 bg-violet-500"></div>
+                    <h2 class="text-5xl font-extrabold tracking-tighter text-white">Relay Telemetry</h2>
+                </div>
+                <p class="text-on-surface-variant max-w-2xl leading-relaxed">
+                    Regional relay performance and sovereign identity distribution across the global protocol.
+                </p>
+            </section>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-panel p-8 rounded-xl border border-white/5 space-y-4">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500">Active Peers</span>
+                    <h4 class="text-5xl font-black text-white tracking-tighter">1,284</h4>
+                    <div class="w-full bg-zinc-900 h-1 rounded-full overflow-hidden">
+                        <div class="bg-secondary h-full w-[80%]"></div>
+                    </div>
+                </div>
+                <div class="glass-panel p-8 rounded-xl border border-white/5 space-y-4">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500">Protocol Latency</span>
+                    <h4 class="text-5xl font-black text-secondary tracking-tighter">0.92ms</h4>
+                    <div class="w-full bg-zinc-900 h-1 rounded-full overflow-hidden">
+                        <div class="bg-secondary h-full w-[95%]"></div>
+                    </div>
+                </div>
+                <div class="glass-panel p-8 rounded-xl border border-white/5 space-y-4">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500">Signed Payloads</span>
+                    <h4 class="text-5xl font-black text-primary tracking-tighter">42.2k</h4>
+                    <div class="w-full bg-zinc-900 h-1 rounded-full overflow-hidden">
+                        <div class="bg-primary h-full w-[60%]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel p-10 rounded-xl border border-white/5">
+                <h3 class="text-xl font-bold text-white tracking-tight mb-8">Node Distribution</h3>
+                <div class="h-64 flex items-end gap-2 px-4">
+                    <div class="flex-1 bg-secondary/10 border-t border-secondary/30 h-[20%] rounded-t kinetic-snap hover:bg-secondary/40"></div>
+                    <div class="flex-1 bg-primary/10 border-t border-primary/30 h-[45%] rounded-t kinetic-snap hover:bg-primary/40"></div>
+                    <div class="flex-1 bg-secondary/10 border-t border-secondary/30 h-[80%] rounded-t kinetic-snap hover:bg-secondary/40"></div>
+                    <div class="flex-1 bg-violet-500/10 border-t border-violet-500/30 h-[60%] rounded-t kinetic-snap hover:bg-violet-500/40"></div>
+                    <div class="flex-1 bg-primary/10 border-t border-primary/30 h-[90%] rounded-t kinetic-snap hover:bg-primary/40"></div>
                 </div>
             </div>
         </div>
@@ -255,6 +360,29 @@
                 window.location.href = "/";
                 return;
             }
+
+            window.switchTab = (tab) => {
+                // Toggle sections
+                ['setup', 'mailbox', 'analytics'].forEach(t => {
+                    document.getElementById(`view-${t}`).classList.add('hidden');
+                });
+                document.getElementById(`view-${tab}`).classList.remove('hidden');
+
+                // Update Sidebar
+                const navItems = document.querySelectorAll('.nav-item');
+                navItems.forEach(item => {
+                    item.classList.replace('text-white', 'text-zinc-500');
+                    item.classList.replace('bg-white/5', 'hover:bg-white/5');
+                    item.classList.remove('border-r-2', 'border-secondary', 'shadow-[0_0_15px_rgba(34,211,238,0.2)]');
+                });
+
+                const activeItem = Array.from(navItems).find(i => i.textContent.toLowerCase().includes(tab));
+                if (activeItem) {
+                    activeItem.classList.replace('text-zinc-500', 'text-white');
+                    activeItem.classList.replace('hover:bg-white/5', 'bg-white/5');
+                    activeItem.classList.add('border-r-2', 'border-secondary', 'shadow-[0_0_15px_rgba(34,211,238,0.2)]');
+                }
+            };
 
             document.getElementById('userEmail').textContent = session.user.email;
             
