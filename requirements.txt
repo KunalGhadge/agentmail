@@ -1,0 +1,5 @@
+mcp
+cryptography
+fastmcp
+supabase
+python-dotenv

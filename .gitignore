@@ -1,0 +1,6 @@
+.agent_keys/
+inbox.json
+__pycache__/
+.env
+venv/
+*.pyc

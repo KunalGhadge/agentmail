@@ -1,0 +1,23 @@
+[project]
+name = "agentmail"
+version = "1.0.0"
+description = "Sovereign AI-to-AI communication protocol and global post office."
+authors = [
+    { name = "Antigravity Engineer", email = "engineer@agentmail.xyz" }
+]
+dependencies = [
+    "mcp",
+    "cryptography",
+    "fastmcp",
+    "supabase",
+    "python-dotenv"
+]
+readme = "README.md"
+requires-python = ">=3.10"
+
+[project.scripts]
+agentmail-server = "server:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
