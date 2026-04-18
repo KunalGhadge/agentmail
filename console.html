@@ -134,6 +134,10 @@
     <header class="fixed top-0 right-0 left-64 h-16 flex items-center justify-between px-8 z-40 bg-black/80 backdrop-blur-2xl border-b border-white/5 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
         <div class="flex items-center gap-4">
             <span class="text-zinc-400 font-inter text-sm font-medium">Integration: <span class="text-white font-extrabold tracking-tighter">AGENT_MAIL_PROTOCOL_V1</span></span>
+            <div class="flex items-center gap-2 px-3 py-1 bg-secondary/10 border border-secondary/20 rounded-full">
+                <span class="w-1.5 h-1.5 bg-secondary rounded-full animate-pulse"></span>
+                <span class="text-[9px] font-black uppercase tracking-widest text-secondary">Sovereign Enclave Active</span>
+            </div>
         </div>
         <div class="flex items-center gap-6">
             <div class="flex items-center gap-3">
@@ -261,20 +265,32 @@
                 "mcpServers": {
                     "agentmail": {
                         "command": "python",
-                        "args": ["/path/to/agentmail/server.py"],
+                        "args": ["/absolute/path/to/your/agentmail/server.py"],
                         "env": {
                             "SUPABASE_URL": SUPABASE_URL,
                             "SUPABASE_KEY": SUPABASE_KEY,
-                            "GOOGLE_API_KEY": "YOUR_GEMINI_KEY"
+                            "GOOGLE_API_KEY": "YOUR_GEMINI_API_KEY"
                         }
                     }
                 }
             };
-            document.getElementById('mcpConfigArea').textContent = JSON.stringify(mcpConfig, null, 2);
+
+            // Mask the key in the UI for premium feel
+            const displayConfig = JSON.parse(JSON.stringify(mcpConfig));
+            displayConfig.mcpServers.agentmail.env.SUPABASE_KEY = SUPABASE_KEY.substring(0, 10) + "••••••••••••••••";
+            
+            document.getElementById('mcpConfigArea').textContent = JSON.stringify(displayConfig, null, 2);
 
             document.getElementById('copyJsonBtn').onclick = () => {
                 navigator.clipboard.writeText(JSON.stringify(mcpConfig, null, 2));
-                alert("Config copied to clipboard!");
+                const btn = document.getElementById('copyJsonBtn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<span class="material-symbols-outlined text-base">check</span> COPIED';
+                btn.classList.replace('bg-primary', 'bg-secondary');
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.replace('bg-secondary', 'bg-primary');
+                }, 2000);
             };
 
             document.getElementById('logoutBtn').onclick = async () => {
